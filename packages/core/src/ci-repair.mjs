@@ -1,7 +1,8 @@
 import { classifyFailure } from "./repair-policy.mjs";
 export function decideCiRepair({ checks, attempts = 0, maxAttempts = 2, elapsedMs = 0, maxElapsedMs = 30 * 60 * 1000 }) {
   if (!Array.isArray(checks)) throw new TypeError("Check runs required");
-  if (![attempts, maxAttempts, elapsedMs, maxElapsedMs].every(Number.isFinite)) throw new TypeError("Invalid repair budget");
+  if (![attempts, maxAttempts, elapsedMs, maxElapsedMs].every(v => Number.isFinite(v) && v >= 0)) throw new TypeError("Invalid repair budget");
+  if (checks.length === 0) return { action: "wait", reason: "checks-not-reported", failed: [] };
   const failed = checks.filter(c => c.status === "completed" && ["failure", "timed_out", "action_required"].includes(c.conclusion));
   const pending = checks.some(c => c.status !== "completed");
   if (pending) return { action: "wait", reason: "checks-pending", failed };
