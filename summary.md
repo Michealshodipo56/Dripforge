@@ -133,3 +133,11 @@ Inspect this summary, README, docs, package manifests and git log first. Confirm
 - Added a 30-minute wall-clock limit for worker jobs and forced container removal on timeout.
 - **Current count: 74 connector-confirmed commits including this summary update** (68 prior, one fail-closed security fix, five runtime/dashboard fixes).
 - **Important:** these are implementation corrections, not a validated production release. No real end-to-end issue-to-PR test or secure execution isolation. The unsafe worker remains disabled by default. Do not run it on the shared Oracle VM.
+
+## Agent safety and context continuation
+- Updated worker to retain model-requested file read context even if the model simultaneously proposes edits.
+- Added a pre-commit block on automated changes to GitHub Actions workflows and `.gitmodules`.
+- Added path-component symlink rejection for model-authored file writes. **This does not fully protect against race conditions or unsafe test execution.**
+- These commits have not been integration-tested in a live Docker worker.
+- The GitHub connector accepted five write requests in this continuation (one was a no-content-change refactor). Commit count is approximately **79 including this summary**; verify exact count with git log.
+- **Still not complete or safe for the shared Oracle host.** Required: a dedicated isolated execution service with no raw provider/GitHub secrets in the test container, full CI repair and approval integration, integration tests, and production orchestration.
