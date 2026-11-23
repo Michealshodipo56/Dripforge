@@ -125,3 +125,11 @@ Inspect this summary, README, docs, package manifests and git log first. Confirm
 - Commit count **67 before this summary update, 68 including it**.
 - Security blocker unchanged: worker executes repository-controlled code with secrets in its environment; API controls Docker daemon. Do not deploy to a shared production Oracle VM.
 - The committed source has not passed a full test/build or real issue-to-PR integration test.
+
+## Runtime integration fixes (latest)
+- Corrected non-root worker workspace and temporary mount permissions; previously the container user could not reliably write to the tmpfs.
+- Installed Docker CLI in the API image, needed by the existing Docker socket-based prototype launcher.
+- Added GitHub CI observation control to the dashboard, using the existing authenticated `GET /api/jobs/:id/ci` endpoint.
+- Added a 30-minute wall-clock limit for worker jobs and forced container removal on timeout.
+- **Current count: 74 connector-confirmed commits including this summary update** (68 prior, one fail-closed security fix, five runtime/dashboard fixes).
+- **Important:** these are implementation corrections, not a validated production release. No real end-to-end issue-to-PR test or secure execution isolation. The unsafe worker remains disabled by default. Do not run it on the shared Oracle VM.
