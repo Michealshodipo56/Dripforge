@@ -141,3 +141,10 @@ Inspect this summary, README, docs, package manifests and git log first. Confirm
 - These commits have not been integration-tested in a live Docker worker.
 - The GitHub connector accepted five write requests in this continuation (one was a no-content-change refactor). Commit count is approximately **79 including this summary**; verify exact count with git log.
 - **Still not complete or safe for the shared Oracle host.** Required: a dedicated isolated execution service with no raw provider/GitHub secrets in the test container, full CI repair and approval integration, integration tests, and production orchestration.
+
+## CI failure classification continuation
+- Added `packages/core/src/ci-repair.mjs` for bounded repair decisions (wait, repair, escalate, stop) and tests.
+- Added `packages/core/src/ci-log.mjs` for bounded/redacted CI log summaries and tests.
+- Extended the live API CI observation endpoint to report `repairRecommendation` as `wait`, `manual-review`, or `none`. This endpoint **does not execute a repair**.
+- Total connector-confirmed commits in this thread: **84 including this summary update**, assuming the previous handoff's count of 79 was accurate.
+- The core CI repair decision helper is not yet wired to a worker; this is still not a full CI repair product.
