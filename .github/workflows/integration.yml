@@ -23,6 +23,8 @@ jobs:
           find apps workers packages -type f -name '*.mjs' -print0 | xargs -0 -r -n 1 node --check
       - name: Run core tests
         run: node --test packages/core/test/*.test.mjs
+      - name: API integration smoke test
+        run: node --test tests/api-smoke.test.mjs
   container-build:
     runs-on: ubuntu-latest
     timeout-minutes: 20
