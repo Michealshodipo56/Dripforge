@@ -109,3 +109,11 @@ Inspect this summary, README, docs, package manifests and git log first. Confirm
 - Added explicit job-scoped approval policy and tests. The MVP worker does **not yet enforce these approvals**.
 - Commit count: **57 before this update, 58 after it**.
 - Current security warning remains: the prototype worker can execute untrusted code with provider/GitHub credentials in its environment. Do not deploy on the shared Oracle host.
+
+## Additional foundation modules
+- Added lifecycle job events with event summary and tests.
+- Added Git branch-ref validation and deterministic issue branch naming with tests.
+- Added assigned-issue filtering/grouping that excludes GitHub pull requests and tests.
+- **64 successful connector commits total including this summary update.**
+- No complete Git checkout or end-to-end runtime validation has been completed; all new source is committed but not independently verified against deployed infrastructure.
+- The security risks described above remain unresolved. Prioritize a secure worker architecture and CI repair integration.
