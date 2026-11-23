@@ -102,3 +102,10 @@ Inspect this summary, README, docs, package manifests and git log first. Confirm
 - Commit count after this update: **51** successful connector commits since project initialization in this conversation.
 - A separate local prototype source archive was generated in the conversation working container and two local API tests passed there. It is not the committed source and is not proof of production readiness.
 - **Stop condition not achieved:** no successful full repository build, live issue-to-PR run, CI repair verification or secure Oracle deployment. Production security blockers are documented in docs/security-review-mvp.md.
+
+## Further continuation
+- Added `packages/core/src/ci-monitor.mjs` and tests for SHA-scoped pull-request required-check inspection. This is a **library**, not a running CI monitoring loop.
+- Added GitHub App JWT signing and installation-token exchange helpers and tests. The MVP API still uses a static GitHub token; these helpers are **not integrated** yet.
+- Added explicit job-scoped approval policy and tests. The MVP worker does **not yet enforce these approvals**.
+- Commit count: **57 before this update, 58 after it**.
+- Current security warning remains: the prototype worker can execute untrusted code with provider/GitHub credentials in its environment. Do not deploy on the shared Oracle host.
