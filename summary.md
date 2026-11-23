@@ -83,3 +83,15 @@ Inspect this summary, README, docs, package manifests and git log first. Confirm
 - **Still not production-ready.** These are foundation modules, not an integrated autonomous issue solver. Do not deploy as if complete.
 - **Known integration gaps:** GitHub App auth, user sessions, persistence repositories and migrations execution, HTTP API, job queue, isolated worker, LLM tool loop, git branch/PR operations, live CI reconciliation, UI, end-to-end tests.
 - **Known validation gap:** GitHub DNS unavailable in local container; source written through GitHub connector and tests have not been executed. Do not report CI passing.
+
+## Implementation continuation — 2026-11-23 (latest)
+- Created `apps/api/index.mjs`: single-admin bearer authentication, GitHub issue listing, job creation and JSON persistence; launches Docker worker. Experimental MVP only.
+- Created `workers/runner/index.mjs`: GitHub clone, issue context, up to three model iterations, file edits, command execution, local validation, branch push and draft PR creation.
+- Created worker and API Dockerfiles, `deploy/compose.yml`, and `.env.example`.
+- Created `apps/web/index.html`: standalone issue/job dashboard. **It is not yet served by the API or integrated through a same-origin reverse proxy**.
+- Created `docs/mvp-deployment.md`, `docs/security-review-mvp.md`, and `tests/README.md`.
+- In a separate local container workspace, developed a more extensive prototype and successfully ran **two local API tests**, but that prototype is not byte-for-byte identical to the repository files; those tests **do not validate the committed API**.
+- **GitHub commit count: 46 before this summary update, 47 including it**, based on connector commit responses.
+- **Security blocker:** API Docker socket mount gives host-equivalent privileges; worker receives GitHub and model secrets while running untrusted repo tests with unrestricted network. Do not deploy on the existing shared Oracle VM. Need an isolated dedicated worker host, credential broker, egress control and sandbox hardening.
+- **Functional blockers:** no GitHub CI polling/repair, no PostgreSQL-backed orchestration, no multi-account GitHub App auth, no robust frontend/backend integration, no full E2E tests. GitHub API/model interactions and PR creation have not been live-tested.
+- Next agent should prioritize integration and hardening over commit count, inspect all source for correctness, run full test/build/CI, and replace prototype runtime before production.
