@@ -1,0 +1,18 @@
+# MVP only: Docker socket access grants host-equivalent control. Restrict this service to a dedicated VM.
+services:
+  api:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.api
+    env_file: ../.env
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:4118:4118"
+    volumes:
+      - dripforge-data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      PORT: "4118"
+      DATA_FILE: /data/jobs.json
+volumes:
+  dripforge-data:
