@@ -175,3 +175,11 @@ Inspect this summary, README, docs, package manifests and git log first. Confirm
 - Health endpoint now includes `workerEnabled` so operators can confirm the dangerous prototype worker is disabled by default.
 - Expanded API smoke test assertions for the two behaviors.
 - These changes do not complete autonomous CI repair or secret-safe sandboxing. Integration workflow status still needs verification.
+
+## Assigned issue discovery improvements
+- Added bounded GitHub REST Link pagination (up to five pages of 100 assigned issues) with trusted GitHub API host validation and tests.
+- API assigned-issue listing excludes PRs and returns `X-Dripforge-Truncated` to indicate further pages were omitted.
+- Docker API image now includes the shared pagination module.
+- Starting an issue job now verifies the issue is assigned to the authenticated GitHub account before launching the worker.
+- The existing single-token architecture still cannot independently connect multiple GitHub identities; no claim of full product completion.
+- Not yet verified: current CI workflow result or end-to-end runtime. Unsafe worker remains disabled by default.
