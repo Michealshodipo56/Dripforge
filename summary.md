@@ -72,3 +72,14 @@ Inspect this summary, README, docs, package manifests and git log first. Confirm
 - No tests have been executed in a checked-out copy of the current repository. GitHub hostname DNS resolution failed in the available container, so do not claim local build success.
 - The system remains **incomplete**: there is no production API server, authenticated web application, PostgreSQL persistence implementation, provider adapters, BullMQ worker, isolated sandbox, autonomous agent loop, PR creation, or CI repair. It is **not** ready to connect to Oracle for production operation.
 - Immediate next step: obtain a connected development environment with Git clone and push access, implement the end-to-end vertical slice, run tests and build, and continue meaningful commits.
+
+## Continuation — 2026-11-23
+- Added authenticated AES-256-GCM credential encryption with associated data and tamper tests.
+- Added model discovery adapters for OpenAI, Anthropic, Google, OpenRouter, Groq, DeepSeek, Together and Fireworks, with no fabricated model access or pricing.
+- Added required CI check evaluation scoped to head SHA and trusted required-check names.
+- Added failure classification and bounded repair decision helper.
+- Added unit tests for each new module.
+- GitHub commits created in this project conversation: **35 before this summary update; 36 including it**. Count is based on successful connector write results; verify with git log when a full clone is available.
+- **Still not production-ready.** These are foundation modules, not an integrated autonomous issue solver. Do not deploy as if complete.
+- **Known integration gaps:** GitHub App auth, user sessions, persistence repositories and migrations execution, HTTP API, job queue, isolated worker, LLM tool loop, git branch/PR operations, live CI reconciliation, UI, end-to-end tests.
+- **Known validation gap:** GitHub DNS unavailable in local container; source written through GitHub connector and tests have not been executed. Do not report CI passing.
