@@ -117,3 +117,11 @@ Inspect this summary, README, docs, package manifests and git log first. Confirm
 - **64 successful connector commits total including this summary update.**
 - No complete Git checkout or end-to-end runtime validation has been completed; all new source is committed but not independently verified against deployed infrastructure.
 - The security risks described above remain unresolved. Prioritize a secure worker architecture and CI repair integration.
+
+## Latest continuation
+- Added authenticated `GET /api/jobs/:id/ci` endpoint to fetch the live PR head SHA and GitHub check-run observations. Its response **explicitly marks requiredChecksVerified=false**; it is not an automatic repair loop.
+- Fixed route parsing and URL validation for the CI endpoint.
+- Fixed ephemeral worker `/tmp` mount to allow the Git credential helper to execute (the earlier `noexec` mount would have prevented cloning).
+- Commit count **67 before this summary update, 68 including it**.
+- Security blocker unchanged: worker executes repository-controlled code with secrets in its environment; API controls Docker daemon. Do not deploy to a shared production Oracle VM.
+- The committed source has not passed a full test/build or real issue-to-PR integration test.
