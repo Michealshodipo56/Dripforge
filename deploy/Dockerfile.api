@@ -1,4 +1,5 @@
 FROM node:22-bookworm-slim
+RUN apt-get update && apt-get install -y --no-install-recommends docker.io ca-certificates && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 COPY apps/api/index.mjs /app/index.mjs
 COPY apps/web/index.html /app/web/index.html
