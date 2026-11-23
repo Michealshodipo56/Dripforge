@@ -40,6 +40,8 @@ test('API starts safely without worker credentials and protects private routes',
   const jobs = await fetch(root + '/api/jobs', { headers: { authorization: 'Bearer ' + token } });
   assert.equal(jobs.status, 200);
   assert.deepEqual(await jobs.json(), []);
+  const missing = await fetch(root + '/api/jobs/not-a-real-job', { headers: { authorization: 'Bearer ' + token } });
+  assert.equal(missing.status, 404);
   const disabled = await fetch(root + '/api/jobs', {
     method: 'POST', headers: { authorization: 'Bearer ' + token, 'content-type': 'application/json' },
     body: JSON.stringify({ repo: 'example/repo', issue: 1 })
