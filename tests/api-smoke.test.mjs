@@ -34,7 +34,9 @@ test('API starts safely without worker credentials and protects private routes',
   const root = 'http://127.0.0.1:' + port;
   const health = await fetch(root + '/health');
   assert.equal(health.status, 200);
-  assert.equal((await health.json()).status, 'ok');
+  const healthBody = await health.json();
+  assert.equal(healthBody.status, 'ok');
+  assert.equal(healthBody.workerEnabled, false);
   const unauthorized = await fetch(root + '/api/jobs');
   assert.equal(unauthorized.status, 401);
   const jobs = await fetch(root + '/api/jobs', { headers: { authorization: 'Bearer ' + token } });
