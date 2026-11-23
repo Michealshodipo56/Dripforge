@@ -148,3 +148,10 @@ Inspect this summary, README, docs, package manifests and git log first. Confirm
 - Extended the live API CI observation endpoint to report `repairRecommendation` as `wait`, `manual-review`, or `none`. This endpoint **does not execute a repair**.
 - Total connector-confirmed commits in this thread: **84 including this summary update**, assuming the previous handoff's count of 79 was accurate.
 - The core CI repair decision helper is not yet wired to a worker; this is still not a full CI repair product.
+
+## CI and worker hardening continuation
+- CI repair policy now treats an empty check-run list as pending rather than success and rejects negative budget values.
+- Added tests for both cases.
+- Restricted model-selected validation executable names and rejected shell metacharacters in command arguments. This is **not a sandbox**: permitted build tools can execute arbitrary repository scripts, and the runner still exposes credentials to those processes.
+- CI endpoint now explicitly warns that observed check runs are not required branch-protection checks.
+- Still missing: complete secret isolation, reliable CI repair orchestration, actual integration test run, and deployment-ready architecture.
