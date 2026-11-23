@@ -169,3 +169,9 @@ Inspect this summary, README, docs, package manifests and git log first. Confirm
 - The agent's model file read/write path helper now blocks common credential filenames, and read operations reject symlinked path components.
 - These changes are committed but have not been verified by a live integration test. The worker still receives GitHub and model secrets and can run untrusted repository code. **Do not enable `ENABLE_UNSAFE_WORKER` on a shared Oracle host.**
 - Next release gates: run validation in an isolated credential-free container, make agent GitHub/model calls through a privileged broker, integrate CI repair orchestration, and validate the complete issue-to-PR-to-CI lifecycle.
+
+## API status and smoke coverage
+- Added authenticated `GET /api/jobs/:id` for polling individual job state; unknown job returns 404.
+- Health endpoint now includes `workerEnabled` so operators can confirm the dangerous prototype worker is disabled by default.
+- Expanded API smoke test assertions for the two behaviors.
+- These changes do not complete autonomous CI repair or secret-safe sandboxing. Integration workflow status still needs verification.
