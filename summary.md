@@ -95,3 +95,10 @@ Inspect this summary, README, docs, package manifests and git log first. Confirm
 - **Security blocker:** API Docker socket mount gives host-equivalent privileges; worker receives GitHub and model secrets while running untrusted repo tests with unrestricted network. Do not deploy on the existing shared Oracle VM. Need an isolated dedicated worker host, credential broker, egress control and sandbox hardening.
 - **Functional blockers:** no GitHub CI polling/repair, no PostgreSQL-backed orchestration, no multi-account GitHub App auth, no robust frontend/backend integration, no full E2E tests. GitHub API/model interactions and PR creation have not been live-tested.
 - Next agent should prioritize integration and hardening over commit count, inspect all source for correctness, run full test/build/CI, and replace prototype runtime before production.
+
+## Final fixes in this continuation
+- Fixed API container listener from 127.0.0.1 to 0.0.0.0 while Compose still binds published port to **host** 127.0.0.1.
+- Added root-page dashboard serving from the API and copied the dashboard into its Docker image. The dashboard currently requires a user-entered backend URL.
+- Commit count after this update: **51** successful connector commits since project initialization in this conversation.
+- A separate local prototype source archive was generated in the conversation working container and two local API tests passed there. It is not the committed source and is not proof of production readiness.
+- **Stop condition not achieved:** no successful full repository build, live issue-to-PR run, CI repair verification or secure Oracle deployment. Production security blockers are documented in docs/security-review-mvp.md.
