@@ -34,6 +34,19 @@ Initial 9 GitHub commits:
 
 The initial job-state module is a prototype and not yet a durable orchestration system. Initial tests were written but NOT executed in the first pass. Later updates should record actual test execution, not assume success.
 
+## Additional progress on 2026-11-23
+- Added summary.md as an agent handoff document.
+- Added core budget enforcement and unit tests.
+- Added log redaction and unit tests.
+- Added issue idempotency key generation and unit tests.
+- Added observed command validation and unit tests.
+- Added initial PostgreSQL migration covering users, GitHub connections/installations, repositories, issues, encrypted provider credentials, model configurations, jobs, events, attempts, commands, file changes, commits, PRs, CI, usage, costs and approvals.
+- Added GitHub Actions core test/syntax workflow.
+- Added docs/operations.md incident and recovery runbook.
+- **21 GitHub file commits created so far**, including this summary's previous version; the next update commit makes 22.
+- No successful local tests, database migration, live GitHub integration or deployed worker have been verified yet.
+- Caution: current `requiredChecksPassed` helper expects an already-filtered required-check list and should be revisited to distinguish optional checks from required checks. Job state machine pause transitions also need expansion before runtime use.
+
 ## Current implementation status
 **INCOMPLETE.** Foundation started; auth, DB, provider integrations, web dashboard, queue, workers, PR creation and CI repair are not yet implemented. Do not call the project production ready.
 
