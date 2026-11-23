@@ -1,0 +1,13 @@
+{
+  "name": "dripforge",
+  "private": true,
+  "version": "0.1.0",
+  "packageManager": "pnpm@9.15.4",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test packages/core/test/*.test.mjs",
+    "check": "node --check packages/core/src/job-state.mjs && pnpm test"
+  }
+}
