@@ -1,0 +1,22 @@
+name: Core checks
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run core tests
+        run: node --test packages/core/test/*.test.mjs
+      - name: Check syntax
+        run: |
+          for file in packages/core/src/*.mjs packages/core/test/*.mjs; do
+            node --check "$file"
+          done
