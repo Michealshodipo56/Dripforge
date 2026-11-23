@@ -155,3 +155,11 @@ Inspect this summary, README, docs, package manifests and git log first. Confirm
 - Restricted model-selected validation executable names and rejected shell metacharacters in command arguments. This is **not a sandbox**: permitted build tools can execute arbitrary repository scripts, and the runner still exposes credentials to those processes.
 - CI endpoint now explicitly warns that observed check runs are not required branch-protection checks.
 - Still missing: complete secret isolation, reliable CI repair orchestration, actual integration test run, and deployment-ready architecture.
+
+## CI/CD integration and API smoke testing
+- Added `.github/workflows/integration.yml` to run syntax checks, core tests, API smoke test, API/worker Docker builds, and Compose configuration validation on push to main and PRs.
+- Added `packages/core/src/ci-summary.mjs` and tests for conservative observed check status reporting.
+- Added `tests/api-smoke.test.mjs` to verify API health, authentication, persisted job list, and fail-closed worker launch with dummy credentials.
+- API now starts without a model API key when unsafe worker execution is disabled, accepts `WEB_HTML_PATH` for local integration testing, and logs the actual bound port.
+- **Not verified:** actual GitHub Actions green status, Docker builds, and full end-to-end issue-to-PR workflow. Do not call the system production ready.
+- **Remaining:** isolate untrusted test execution from model and GitHub secrets; implement safe CI repair orchestration and review handling; replace single-admin prototype with real account/provider integration and durable queue; deploy on isolated infrastructure only.
