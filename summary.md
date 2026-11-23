@@ -163,3 +163,9 @@ Inspect this summary, README, docs, package manifests and git log first. Confirm
 - API now starts without a model API key when unsafe worker execution is disabled, accepts `WEB_HTML_PATH` for local integration testing, and logs the actual bound port.
 - **Not verified:** actual GitHub Actions green status, Docker builds, and full end-to-end issue-to-PR workflow. Do not call the system production ready.
 - **Remaining:** isolate untrusted test execution from model and GitHub secrets; implement safe CI repair orchestration and review handling; replace single-admin prototype with real account/provider integration and durable queue; deploy on isolated infrastructure only.
+
+## Credential boundary hardening continuation
+- Validation subprocesses now use a reduced environment and disable npm lifecycle scripts by default. This reduces accidental exposure but **does not isolate the test process from the parent worker's environment, filesystem, or network**.
+- The agent's model file read/write path helper now blocks common credential filenames, and read operations reject symlinked path components.
+- These changes are committed but have not been verified by a live integration test. The worker still receives GitHub and model secrets and can run untrusted repository code. **Do not enable `ENABLE_UNSAFE_WORKER` on a shared Oracle host.**
+- Next release gates: run validation in an isolated credential-free container, make agent GitHub/model calls through a privileged broker, integrate CI repair orchestration, and validate the complete issue-to-PR-to-CI lifecycle.
