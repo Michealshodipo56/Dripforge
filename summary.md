@@ -62,3 +62,13 @@ The initial job-state module is a prototype and not yet a durable orchestration 
 
 ## Workflow for next agent
 Inspect this summary, README, docs, package manifests and git log first. Confirm actual branch and commit count; inspect tests and CI before changing code. Make small meaningful commits with descriptive messages. Update summary.md after significant milestones. Do not invent success or conceal blockers. Ensure secrets are never written to this repository.
+
+## Latest continuation (2026-11-23 evening)
+- Added `packages/core/src/github-api.mjs` (server-side GitHub REST client: authenticated identity, assigned issues, issue/PR lookup and check runs).
+- Added `packages/core/test/github-api.test.mjs` (mocked HTTP tests).
+- Added `packages/core/src/webhook.mjs` (HMAC SHA-256 signature verification over raw request body).
+- Added `packages/core/test/webhook.test.mjs` (signature/tamper tests).
+- Total GitHub commits created in this conversation: 26 before this summary update, 27 including this update.
+- No tests have been executed in a checked-out copy of the current repository. GitHub hostname DNS resolution failed in the available container, so do not claim local build success.
+- The system remains **incomplete**: there is no production API server, authenticated web application, PostgreSQL persistence implementation, provider adapters, BullMQ worker, isolated sandbox, autonomous agent loop, PR creation, or CI repair. It is **not** ready to connect to Oracle for production operation.
+- Immediate next step: obtain a connected development environment with Git clone and push access, implement the end-to-end vertical slice, run tests and build, and continue meaningful commits.
