@@ -183,3 +183,10 @@ Inspect this summary, README, docs, package manifests and git log first. Confirm
 - Starting an issue job now verifies the issue is assigned to the authenticated GitHub account before launching the worker.
 - The existing single-token architecture still cannot independently connect multiple GitHub identities; no claim of full product completion.
 - Not yet verified: current CI workflow result or end-to-end runtime. Unsafe worker remains disabled by default.
+
+## CI observations and reliable worker log framing
+- Integrated the bounded `decideCiRepair` policy into the authenticated PR CI endpoint. The endpoint returns a `repairDecision` but **does not autonomously execute repair**; eligible failures are explicitly labeled for manual review.
+- Corrected policy handling of cancelled, startup-failed, and action-required checks to escalate rather than assuming a code bug. Added tests.
+- Added bounded line framing for worker stdout/stderr so a result marker split across process output chunks is not lost; added tests and Docker packaging.
+- CI endpoint now collects both GitHub check runs and legacy commit statuses for the PR head SHA. This is still observational and **does not verify required branch protection**.
+- All shared modules were added to the API Docker image; end-to-end CI and image build status remain unverified.
