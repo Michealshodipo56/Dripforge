@@ -8,3 +8,12 @@ test("escalates missing secrets rather than editing code", () => assert.equal(de
 
 test("does not treat missing checks as success", () => assert.deepEqual(decideCiRepair({ checks: [] }), { action: "wait", reason: "checks-not-reported", failed: [] }));
 test("rejects negative retry budgets", () => assert.throws(() => decideCiRepair({ checks: [], attempts: -1 }), TypeError));
+
+test("cancelled check escalates without an automatic repair", () => {
+  const result = decideCiRepair({ checks: [{ status: "completed", conclusion: "cancelled" }] });
+  assert.equal(result.action, "escalate");
+});
+test("startup failure escalates", () => {
+  const result = decideCiRepair({ checks: [{ status: "completed", conclusion: "startup_failure" }] });
+  assert.equal(result.action, "escalate");
+});
