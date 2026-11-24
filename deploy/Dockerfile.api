@@ -4,6 +4,7 @@ WORKDIR /app
 COPY apps/api/index.mjs /app/apps/api/index.mjs
 COPY packages/core/src/github-pagination.mjs /app/packages/core/src/github-pagination.mjs
 COPY packages/core/src/line-framer.mjs /app/packages/core/src/line-framer.mjs
+COPY packages/core/src/ci-observation.mjs /app/packages/core/src/ci-observation.mjs
 COPY packages/core/src/ci-repair.mjs /app/packages/core/src/ci-repair.mjs
 COPY packages/core/src/repair-policy.mjs /app/packages/core/src/repair-policy.mjs
 COPY packages/core/src/budget.mjs /app/packages/core/src/budget.mjs
