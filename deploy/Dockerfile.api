@@ -3,5 +3,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends docker.io ca-ce
 WORKDIR /app
 COPY apps/api/index.mjs /app/apps/api/index.mjs
 COPY packages/core/src/github-pagination.mjs /app/packages/core/src/github-pagination.mjs
+COPY packages/core/src/ci-repair.mjs /app/packages/core/src/ci-repair.mjs
+COPY packages/core/src/repair-policy.mjs /app/packages/core/src/repair-policy.mjs
+COPY packages/core/src/budget.mjs /app/packages/core/src/budget.mjs
 COPY apps/web/index.html /app/web/index.html
 CMD ["node","/app/apps/api/index.mjs"]
